@@ -113,13 +113,39 @@ void Articulos::MostrarDatos() {
     }
 }
 
+void MostrarArticulosMenorIgualN(const unordered_map<int, Articulo>& tabla, int n) {
+    int cantidadArticulos = 0;
+
+    for (const auto& pair : tabla) {
+        const Articulo& articulo = pair.second;
+        int totalStock = articulo.deposito1 + articulo.deposito2 + articulo.deposito3 + articulo.deposito4;
+
+        if (totalStock <= n) {
+            cout << "Numero: " << pair.first << endl;
+            cout << "Grupo: " << articulo.grupo << endl;
+            cout << "Codigo: " << articulo.codigo << endl;
+            cout << "Nombre: " << articulo.nombre << endl;
+            cout << "Total de stock: " << totalStock << endl;
+            cout << "-------------------" << endl;
+            cantidadArticulos++;
+        }
+    }
+
+    if (cantidadArticulos == 0) {
+        cout << "No hay artículos con un stock menor o igual a " << n << endl;
+    } else {
+        cout << "Total de artículos con stock menor o igual a " << n << ": " << cantidadArticulos << endl;
+    }
+}
+
+
 int mostrarMenu() {
     int opcion;
     cout << "Menu:" << endl;
     cout << "1. Mostrar datos de articulos" << endl;
     cout << "2. Mostrar el total de articulos en todos los depositos" << endl;
     cout << "3. Mostrar la cantidad de articulos diferentes" << endl;
-    cout << "4. Opcion 4" << endl;
+    cout << "4. Listado de articulos con cantidad n o menos de stock" << endl;
     cout << "5. Opcion 5" << endl;
     cout << "6. Opcion 6" << endl;
     cout << "7. Salir" << endl;
@@ -148,7 +174,10 @@ int main() {
                 articulos.ARTtotalesDIF();
                 break;
             case 4:
-                // Agrega la lógica para la opción 4 aquí
+                int n;
+                cout << "Ingrese el valor de n: ";
+                cin >> n;
+                MostrarArticulosMenorIgualN(tabla, n);
                 break;
             case 5:
                 // Agrega la lógica para la opción 5 aquí
