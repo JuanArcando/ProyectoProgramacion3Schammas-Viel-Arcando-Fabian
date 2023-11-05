@@ -132,11 +132,37 @@ void MostrarArticulosMenorIgualN(const unordered_map<int, Articulo>& tabla, int 
     }
 
     if (cantidadArticulos == 0) {
-        cout << "No hay artículos con un stock menor o igual a " << n << endl;
+        cout << "No hay articulos con un stock menor o igual a " << n << endl;
     } else {
-        cout << "Total de artículos con stock menor o igual a " << n << ": " << cantidadArticulos << endl;
+        cout << "Total de articulos con stock menor o igual a " << n << ": " << cantidadArticulos << endl;
     }
 }
+
+void max_Stock(const unordered_map<int, Articulo>& tabla, int mayor) {
+    int cantidadArticulos = 0;
+
+    for (const auto& pair : tabla) {
+        const Articulo& articulo = pair.second;
+        int totalStock = articulo.deposito1 + articulo.deposito2 + articulo.deposito3 + articulo.deposito4;
+
+        if (totalStock >= mayor) {
+            cout << "Numero: " << pair.first << endl;
+            cout << "Grupo: " << articulo.grupo << endl;
+            cout << "Codigo: " << articulo.codigo << endl;
+            cout << "Nombre: " << articulo.nombre << endl;
+            cout << "Total de stock: " << totalStock << endl;
+            cout << "-------------------" << endl;
+            cantidadArticulos++;
+        }
+    }
+
+    if (cantidadArticulos == 0) {
+        cout << "No hay articulos con un stock igual o superior a " << mayor << endl;
+    } else {
+        cout << "Total de articulos con stock igual o superior a " << mayor << ": " << cantidadArticulos << endl;
+    }
+}
+
 
 
 int mostrarMenu() {
@@ -146,7 +172,7 @@ int mostrarMenu() {
     cout << "2. Mostrar el total de articulos en todos los depositos" << endl;
     cout << "3. Mostrar la cantidad de articulos diferentes" << endl;
     cout << "4. Listado de articulos con cantidad n o menos de stock" << endl;
-    cout << "5. Opcion 5" << endl;
+    cout << "5. Listado de aquellos articulos cuyo stock es igual o supera el numero n." << endl;
     cout << "6. Opcion 6" << endl;
     cout << "7. Salir" << endl;
     cout << "Selecciona una opcion: ";
@@ -180,7 +206,10 @@ int main() {
                 MostrarArticulosMenorIgualN(tabla, n);
                 break;
             case 5:
-                // Agrega la lógica para la opción 5 aquí
+                int mayor;
+                cout << "Ingrese el valor de n: ";
+                cin >> mayor;
+                max_Stock(tabla, mayor);
                 break;
             case 6:
                 // Agrega la lógica para la opción 6 aquí
