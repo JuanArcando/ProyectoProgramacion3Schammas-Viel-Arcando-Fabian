@@ -168,7 +168,7 @@ void max_Stock(const unordered_map<int, Articulo>& tabla, int mayor) {
 int mostrarMenu() {
     int opcion;
     cout << "Menu:" << endl;
-    cout << "1. Mostrar datos de articulos" << endl;
+    cout << "1. Mostrar datos de todos los articulos" << endl;
     cout << "2. Mostrar el total de articulos en todos los depositos" << endl;
     cout << "3. Mostrar la cantidad de articulos diferentes" << endl;
     cout << "4. Listado de articulos con cantidad n o menos de stock" << endl;
