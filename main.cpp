@@ -93,15 +93,19 @@ void leer(unordered_map<int, Articulo>& tabla) {
         }
         depo5 << Deposito5;
 
-        tabla[num] = { Guardar, Cod, Nom, Dep1, Dep2, Dep3, Dep4, Dep5 };
+        depo1 >> Dep1;
         depo2 >> Dep2;
         depo3 >> Dep3;
         depo4 >> Dep4;
         depo5 >> Dep5;
+
         total = Dep1 + Dep2 + Dep3 + Dep4 + Dep5;
         totalArticulos = total + totalArticulos;
+
+        tabla[num] = { Guardar, Cod, Nom, Dep1, Dep2, Dep3, Dep4, Dep5 };
         num++;
     }
+
 
     archivo.close();
 }
@@ -170,10 +174,10 @@ void max_Stock(const unordered_map<int, Articulo>& tabla, int mayor) {
     }
 
     if (cantidadArticulos == 0) {
-        cout << "No hay artículos con un stock igual o superior a " << mayor << endl;
+        cout << "No hay articulos con un stock igual o superior a " << mayor << endl;
     }
     else {
-        cout << "Total de artículos con stock igual o superior a " << mayor << ": " << cantidadArticulos << endl;
+        cout << "Total de articulos con stock igual o superior a " << mayor << ": " << cantidadArticulos << endl;
     }
 }
 
@@ -181,7 +185,7 @@ void Articulos::StockNombre() {
     bool encontrado = false;
     string nombre;
     cin.ignore();
-    cout << "Ingrese el nombre del producto cuyo stock desea conocer: ";
+    cout << "Ingrese el nombre del producto cuyo stock desea conocer (Ingreselo en MAYUSCULAS, ejemplo: 'GRIFERIA VASSER ALIZE EXT  PARED 2 LLAVES 24/2310'): ";
     getline(cin, nombre);
     for (const auto& pair : Tabla) {
         const Articulo& articulo = pair.second;
@@ -191,7 +195,7 @@ void Articulos::StockNombre() {
 
             cout << "Numero: " << pair.first << endl;
             cout << "Grupo: " << articulo.grupo << endl;
-            cout << "Código: " << articulo.codigo << endl;
+            cout << "Codigo: " << articulo.codigo << endl;
             cout << "Nombre: " << articulo.nombre << endl;
             cout << "Stock en Deposito 1: " << articulo.deposito1 << endl;
             cout << "Stock en Deposito 2: " << articulo.deposito2 << endl;
@@ -203,7 +207,7 @@ void Articulos::StockNombre() {
     }
 
     if (!encontrado) {
-        cout << "No se encontraron artículos con el nombre '" << nombre << "'." << endl;
+        cout << "No se encontraron articulos con el nombre '" << nombre << "'." << endl;
     }
 }
 
@@ -254,7 +258,9 @@ void Articulos::StockNomYDep() {
 
     if (!encontrado) {
         cout << "No se encontraron articulos con el nombre '" << nombre << "'." << endl;
+
     }
+    return;
 }
 
 int mostrarMenu() {
@@ -316,11 +322,11 @@ int main() {
                 break;
             case 9:
                 cout << "Tutorial: " << endl;
-                cout << "Usted primero debe ingresar el número de opción que desea utilizar" << endl;
+                cout << "Usted primero debe ingresar el nUmero de opcion que desea utilizar" << endl;
                 cout << "En las opciones 6 y 7 usted debe ingresar el nombre EXACTO del producto" << endl;
                 break;
             default:
-                cout << "Opción no válida. Por favor, elija una opción válida." << endl;
+                cout << "Opcion no valida. Por favor, elija una opcion valida." << endl;
                 break;
         }
     } while (opcion != 8);
