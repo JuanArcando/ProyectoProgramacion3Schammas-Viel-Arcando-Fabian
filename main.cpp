@@ -104,7 +104,7 @@ void Articulos::StockNomYDep() {
         if (articulo.nombre == nombre) {
             encontrado = true;
             int dep,i=0;
-            cout << "Ingrese el deposito que desea revisar el stock: "; cin >> dep;
+            cout << "Ingrese el deposito que desea revisar el stock (los depositos van de 0 a x ): "; cin >> dep;
             cout << "Numero de deposito\tStock" << endl;
             bool encontrarDEP = false;
             while (i < articulo.depositos.size()) {
@@ -243,7 +243,7 @@ int mostrarMenu() {
     cout << "3. Mostrar la cantidad de articulos diferentes" << endl;
     cout << "4. Listado de articulos con cantidad n o menos de stock" << endl;
     cout << "5. Listado de aquellos articulos cuyo stock es igual o supera el numero n." << endl;
-    cout << "6. Busqueda de articulo y stock por nombre" << endl;
+    cout << "6. Busqueda de articulo y stock por nombre (depositos van de 0 a x)" << endl;
     cout << "7. Ver stock por deposito de un articulo en particular (Escribir en MAYUSCULAS el nombre del producto (PILETA C. CERART PARIS GRANDE  BCA  P/)" << endl;
     cout << "8. Salir del programa" << endl;
     cout << "9. Tutorial" << endl;
@@ -295,6 +295,7 @@ int main() {
                 cout << "Bienvenido! A continuacion le mostraremos una breve explicacion de nuestro proyecto: " << endl;
                 cout << "Usted primero debe ingresar el nUmero de opcion que desea utilizar" << endl;
                 cout << "En las opciones 6 y 7 usted debe ingresar el nombre EXACTO del producto" << endl;
+                cout << "Los depositos van de 0 a x (x segun la cantidad de depositos que USTED necesita)" <<endl;
                 break;
             default:
                 cout << "Opcion no valida. Por favor, elija una opcion valida." << endl;
