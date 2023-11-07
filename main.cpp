@@ -75,7 +75,7 @@ void Articulos::StockNombre() {
 
             cout << "Numero: " << pair.first << endl;
             cout << "Grupo: " << articulo.grupo << endl;
-            cout << "Código: " << articulo.codigo << endl;
+            cout << "Codigo: " << articulo.codigo << endl;
             cout << "Nombre: " << articulo.nombre << endl;
             cout << "Stock en Depositos: ";
             for (int deposito : articulo.depositos) {
@@ -87,7 +87,7 @@ void Articulos::StockNombre() {
     }
 
     if (!encontrado) {
-        cout << "No se encontraron artículos con el nombre '" << nombre << "'." << endl;
+        cout << "No se encontraron articulos con el nombre '" << nombre << "'." << endl;
     }
 }
 
@@ -145,10 +145,10 @@ void MostrarArticulosMenorIgualN(const unordered_map<int, Articulo>& tabla, int 
     }
 
     if (cantidadArticulos == 0) {
-        cout << "No hay artículos con un stock menor o igual a " << n << endl;
+        cout << "No hay articulos con un stock menor o igual a " << n << endl;
     }
     else {
-        cout << "Total de artículos con stock menor o igual a " << n << ": " << cantidadArticulos << endl;
+        cout << "Total de articulos con stock menor o igual a " << n << ": " << cantidadArticulos << endl;
     }
 }
 
@@ -174,10 +174,10 @@ void max_Stock(const unordered_map<int, Articulo>& tabla, int mayor) {
     }
 
     if (cantidadArticulos == 0) {
-        cout << "No hay artículos con un stock igual o superior a " << mayor << endl;
+        cout << "No hay articulos con un stock igual o superior a " << mayor << endl;
     }
     else {
-        cout << "Total de artículos con stock igual o superior a " << mayor << ": " << cantidadArticulos << endl;
+        cout << "Total de articulos con stock igual o superior a " << mayor << ": " << cantidadArticulos << endl;
     }
 }
 
@@ -247,7 +247,7 @@ int mostrarMenu() {
     cout << "7. Ver stock por deposito de un articulo en particular (Escribir en MAYUSCULAS el nombre del producto (PILETA C. CERART PARIS GRANDE  BCA  P/)" << endl;
     cout << "8. Salir del programa" << endl;
     cout << "9. Tutorial" << endl;
-    cout << "Selecciona una opcio: ";
+    cout << "Selecciona una opcion: ";
     cin >> opcion;
     return opcion;
 }
