@@ -275,7 +275,7 @@ int mostrarMenu() {
     cout << "7. Ver stock por deposito de un articulo en particular" << endl;
     cout << "8. Salir del programa" << endl;
     cout << "9. Tutorial" << endl;
-    cout << "Selecciona una opcio: ";
+    cout << "Selecciona una opcion: ";
     cin >> opcion;
     return opcion;
 }
@@ -322,6 +322,7 @@ int main() {
                 break;
             case 9:
                 cout << "Tutorial: " << endl;
+                cout << "Bienvenido! A continuacion le mostraremos una breve explicacion de nuestro proyecto: " <<endl;
                 cout << "Usted primero debe ingresar el nUmero de opcion que desea utilizar" << endl;
                 cout << "En las opciones 6 y 7 usted debe ingresar el nombre EXACTO del producto" << endl;
                 break;
