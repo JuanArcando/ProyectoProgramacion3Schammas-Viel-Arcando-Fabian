@@ -31,6 +31,7 @@ public:
     string ARTtotales();
     string StockNombre();
     string StockNomYDep();
+    void StockNomDepU(ofstream& archivoSalida);
 };
 
 Articulos::Articulos(unordered_map<int, Articulo>& t) : Tabla(t) {
@@ -195,6 +196,42 @@ string max_Stock(const unordered_map<int, Articulo>& tabla, int mayor) {
     return result.str();
 }
 
+void Articulos::StockNomDepU(ofstream& archivoSalida) {
+    int dep;
+    cout << "Ingrese el numero de deposito que quiere buscar los datos: ";
+    cin >> dep;
+
+    int cantidad;
+    cout << "Ingrese la cantidad de objetos de referencia: ";
+    cin >> cantidad;
+
+    bool encontrado = false;
+
+    for (const auto& pair : Tabla) {
+        const Articulo& articulo = pair.second;
+
+        if (articulo.depositos.size() > dep) {
+            int stockDeposito = articulo.depositos[dep];
+
+            if (stockDeposito <= cantidad) {
+                archivoSalida << "Numero: " << pair.first << endl;
+                archivoSalida << "Grupo: " << articulo.grupo << endl;
+                archivoSalida << "Codigo: " << articulo.codigo << endl;
+                archivoSalida << "Nombre: " << articulo.nombre << endl;
+                archivoSalida << "Stock en deposito " << dep << ": " << stockDeposito << endl;
+                archivoSalida << "-------------------" << endl;
+
+                encontrado = true;
+            }
+        }
+    }
+
+    if (!encontrado) {
+        archivoSalida << "No se encontraron articulos en el deposito " << dep << " con stock menor o igual a " << cantidad << "." << endl;
+    }
+}
+
+
 void leer(unordered_map<int, Articulo>& tabla) {
     ifstream archivo;
     archivo.open("C:\\Users\\Juan Arcando\\OneDrive\\Escritorio\\ProyectoProgComp\\Tabla.csv", ios::in);
@@ -247,7 +284,6 @@ void leer(unordered_map<int, Articulo>& tabla) {
     archivo.close();
 }
 
-// Nueva función para obtener un número del usuario
 int obtenerNumeroUsuario() {
     int numero;
     cout << "Ingrese un numero: ";
@@ -267,6 +303,7 @@ int mostrarMenu() {
     cout << "7. Ver stock por deposito de un articulo en particular (Escribir en MAYUSCULAS el nombre del producto (PILETA C. CERART PARIS GRANDE  BCA  P/)" << endl;
     cout << "8. Salir del programa" << endl;
     cout << "9. Tutorial" << endl;
+    cout << "10. Busqueda de articulos en un deposito con stock menor o igual a una cantidad de referencia" << endl;
     cout << "Selecciona una opcion: ";
     cin >> opcion;
     return opcion;
@@ -310,10 +347,18 @@ int main() {
                 break;
             case 9:
                 archivoSalida << "Tutorial: " << endl;
-                archivoSalida << "Bienvenido! A continuacion le mostraremos una breve explicacion de nuestro proyecto: " << endl;
-                archivoSalida << "Usted primero debe ingresar el nUmero de opcion que desea utilizar" << endl;
+                archivoSalida << "Bienvenido! Nosotros somos ATS Systems!" << endl;
+                archivoSalida << "---------------------------------------" << endl;
+                archivoSalida << "A continuacion le explicaremos como funciona nuestro programa "<< endl;
+                archivoSalida << "Usted primero debe ingresar el numero de opcion que desea utilizar" << endl;
+                archivoSalida << "Despues de ingresar la opcion deseada, en caso de ser necesario, el programa le pedira algunos datos extras para mostrarle la infromacion que usted necesita"<<endl;
                 archivoSalida << "En las opciones 6 y 7 usted debe ingresar el nombre EXACTO del producto" << endl;
                 archivoSalida << "Los depositos van de 0 a x (x segun la cantidad de depositos que USTED necesita)" << endl;
+                archivoSalida << "Todas las respuestas son almacenadas y enviadas a el archivo 'Procesador_Inventario.txt' donde usted las puede ver mas comodamente" <<endl;\
+                archivoSalida << " Gracias por confiar en ATS Systems "<<endl;
+                break;
+            case 10:
+                articulos.StockNomDepU(archivoSalida);
                 break;
             default:
                 archivoSalida << "Opcion no valida. Por favor, elija una opcion valida." << endl;
