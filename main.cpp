@@ -16,8 +16,8 @@ struct Articulo {
     string nombre;
     vector<int> depositos;
 };
-Articulo::Articulo()
-{
+
+Articulo::Articulo() {
 }
 
 class Articulos {
@@ -26,46 +26,52 @@ private:
 
 public:
     Articulos(unordered_map<int, Articulo>& t);
-    void MostrarDatos();
-    void ARTtotalesDIF();
-    void ARTtotales();
-    void StockNombre();
-    void StockNomYDep();
+    string MostrarDatos();
+    string ARTtotalesDIF();
+    string ARTtotales();
+    string StockNombre();
+    string StockNomYDep();
 };
 
 Articulos::Articulos(unordered_map<int, Articulo>& t) : Tabla(t) {
 }
 
-
-void Articulos::ARTtotalesDIF() {
-    cout << "Existen " << Tabla.size() << " articulos diferentes" << endl;
+string Articulos::ARTtotalesDIF() {
+    stringstream result;
+    result << "Existen " << Tabla.size() << " articulos diferentes";
+    return result.str();
 }
 
-void Articulos::ARTtotales() {
-    cout << "La cantidad de articulos totales es: " << totalArticulos << endl;
+string Articulos::ARTtotales() {
+    stringstream result;
+    result << "La cantidad de articulos totales es: " << totalArticulos;
+    return result.str();
 }
 
-void Articulos::MostrarDatos() {
+string Articulos::MostrarDatos() {
+    stringstream result;
     for (const auto& pair : Tabla) {
         const Articulo& articulo = pair.second;
-        cout << "Numero: " << pair.first << endl;
-        cout << "Grupo: " << articulo.grupo << endl;
-        cout << "Codigo: " << articulo.codigo << endl;
-        cout << "Nombre: " << articulo.nombre << endl;
-        cout << "Depositos: ";
+        result << "Numero: " << pair.first << endl;
+        result << "Grupo: " << articulo.grupo << endl;
+        result << "Codigo: " << articulo.codigo << endl;
+        result << "Nombre: " << articulo.nombre << endl;
+        result << "Depositos: ";
         for (int deposito : articulo.depositos) {
-            cout << deposito << " ";
+            result << deposito << " ";
         }
-        cout << endl;
-        cout << "-------------------" << endl;
+        result << endl;
+        result << "-------------------" << endl;
     }
+    return result.str();
 }
 
-void Articulos::StockNombre() {
+string Articulos::StockNombre() {
+    stringstream result;
     bool encontrado = false;
     string nombre;
     cin.ignore();
-    cout << "Ingrese el nombre del producto cuyo stock desea conocer: ";
+    result << "Ingrese el nombre del producto cuyo stock desea conocer: ";
     getline(cin, nombre);
     for (const auto& pair : Tabla) {
         const Articulo& articulo = pair.second;
@@ -73,29 +79,32 @@ void Articulos::StockNombre() {
         if (articulo.nombre == nombre) {
             encontrado = true;
 
-            cout << "Numero: " << pair.first << endl;
-            cout << "Grupo: " << articulo.grupo << endl;
-            cout << "Codigo: " << articulo.codigo << endl;
-            cout << "Nombre: " << articulo.nombre << endl;
-            cout << "Stock en Depositos: ";
+            result << "Numero: " << pair.first << endl;
+            result << "Grupo: " << articulo.grupo << endl;
+            result << "Codigo: " << articulo.codigo << endl;
+            result << "Nombre: " << articulo.nombre << endl;
+            result << "Stock en Depositos: ";
             for (int deposito : articulo.depositos) {
-                cout << deposito << " ";
+                result << deposito << " ";
             }
-            cout << endl;
-            cout << "-------------------" << endl;
+            result << endl;
+            result << "-------------------" << endl;
         }
     }
 
     if (!encontrado) {
-        cout << "No se encontraron articulos con el nombre '" << nombre << "'." << endl;
+        result << "No se encontraron articulos con el nombre '" << nombre << "'.";
     }
+
+    return result.str();
 }
 
-void Articulos::StockNomYDep() {
+string Articulos::StockNomYDep() {
+    stringstream result;
     bool encontrado = false;
     string nombre;
     cin.ignore();
-    cout << "Ingrese el nombre del producto: ";
+    result << "Ingrese el nombre del producto: ";
     getline(cin, nombre);
 
     for (const auto& pair : Tabla) {
@@ -103,28 +112,30 @@ void Articulos::StockNomYDep() {
 
         if (articulo.nombre == nombre) {
             encontrado = true;
-            int dep,i=0;
-            cout << "Ingrese el deposito que desea revisar el stock (los depositos van de 0 a x ): "; cin >> dep;
-            cout << "Numero de deposito\tStock" << endl;
+            int dep, i = 0;
+            result << "Ingrese el deposito que desea revisar el stock (los depositos van de 0 a x ): ";
+            cin >> dep;
+            result << "Numero de deposito\tStock" << endl;
             bool encontrarDEP = false;
             while (i < articulo.depositos.size()) {
                 if (i == dep) {
-                    cout << i + 1 << "\t\t" << articulo.depositos[i] << endl;
+                    result << i + 1 << "\t\t" << articulo.depositos[i] << endl;
                     encontrarDEP = true;
                     break;
-                }
-                else {
+                } else {
                     i++;
                 }
             }
             if (!encontrarDEP) {
-                cout << "No se encontro el deposito "<<dep<<endl;
+                result << "No se encontro el deposito " << dep;
             }
         }
     }
+    return result.str();
 }
 
-void MostrarArticulosMenorIgualN(const unordered_map<int, Articulo>& tabla, int n) {
+string MostrarArticulosMenorIgualN(const unordered_map<int, Articulo>& tabla, int n) {
+    stringstream result;
     int cantidadArticulos = 0;
 
     for (const auto& pair : tabla) {
@@ -134,25 +145,27 @@ void MostrarArticulosMenorIgualN(const unordered_map<int, Articulo>& tabla, int 
             totalStock += stock;
         }
         if (totalStock <= n) {
-            cout << "Numero: " << pair.first << endl;
-            cout << "Grupo: " << articulo.grupo << endl;
-            cout << "Codigo: " << articulo.codigo << endl;
-            cout << "Nombre: " << articulo.nombre << endl;
-            cout << "Total de stock: " << totalStock << endl;
-            cout << "-------------------" << endl;
+            result << "Numero: " << pair.first << endl;
+            result << "Grupo: " << articulo.grupo << endl;
+            result << "Codigo: " << articulo.codigo << endl;
+            result << "Nombre: " << articulo.nombre << endl;
+            result << "Total de stock: " << totalStock << endl;
+            result << "-------------------" << endl;
             cantidadArticulos++;
         }
     }
 
     if (cantidadArticulos == 0) {
-        cout << "No hay articulos con un stock menor o igual a " << n << endl;
+        result << "No hay articulos con un stock menor o igual a " << n;
+    } else {
+        result << "Total de articulos con stock menor o igual a " << n << ": " << cantidadArticulos;
     }
-    else {
-        cout << "Total de articulos con stock menor o igual a " << n << ": " << cantidadArticulos << endl;
-    }
+
+    return result.str();
 }
 
-void max_Stock(const unordered_map<int, Articulo>& tabla, int mayor) {
+string max_Stock(const unordered_map<int, Articulo>& tabla, int mayor) {
+    stringstream result;
     int cantidadArticulos = 0;
 
     for (const auto& pair : tabla) {
@@ -163,22 +176,23 @@ void max_Stock(const unordered_map<int, Articulo>& tabla, int mayor) {
         }
 
         if (totalStock >= mayor) {
-            cout << "Numero: " << pair.first << endl;
-            cout << "Grupo: " << articulo.grupo << endl;
-            cout << "Codigo: " << articulo.codigo << endl;
-            cout << "Nombre: " << articulo.nombre << endl;
-            cout << "Total de stock: " << totalStock << endl;
-            cout << "-------------------" << endl;
+            result << "Numero: " << pair.first << endl;
+            result << "Grupo: " << articulo.grupo << endl;
+            result << "Codigo: " << articulo.codigo << endl;
+            result << "Nombre: " << articulo.nombre << endl;
+            result << "Total de stock: " << totalStock << endl;
+            result << "-------------------" << endl;
             cantidadArticulos++;
         }
     }
 
     if (cantidadArticulos == 0) {
-        cout << "No hay articulos con un stock igual o superior a " << mayor << endl;
+        result << "No hay articulos con un stock igual o superior a " << mayor;
+    } else {
+        result << "Total de articulos con stock igual o superior a " << mayor << ": " << cantidadArticulos;
     }
-    else {
-        cout << "Total de articulos con stock igual o superior a " << mayor << ": " << cantidadArticulos << endl;
-    }
+
+    return result.str();
 }
 
 void leer(unordered_map<int, Articulo>& tabla) {
@@ -219,8 +233,7 @@ void leer(unordered_map<int, Articulo>& tabla) {
                 dep >> deposito;
                 totalArticulos = deposito + totalArticulos;
                 tabla[num].depositos.push_back(deposito);
-            }
-            else {
+            } else {
                 tabla[num].depositos.push_back(0);
             }
         }
@@ -234,6 +247,13 @@ void leer(unordered_map<int, Articulo>& tabla) {
     archivo.close();
 }
 
+// Nueva función para obtener un número del usuario
+int obtenerNumeroUsuario() {
+    int numero;
+    cout << "Ingrese un numero: ";
+    cin >> numero;
+    return numero;
+}
 
 int mostrarMenu() {
     int opcion;
@@ -253,6 +273,8 @@ int mostrarMenu() {
 }
 
 int main() {
+    ofstream archivoSalida("Procesador_inventario.txt", ios::app);
+
     unordered_map<int, Articulo> tabla;
     leer(tabla);
     Articulos articulos(tabla);
@@ -263,45 +285,42 @@ int main() {
 
         switch (opcion) {
             case 1:
-                articulos.MostrarDatos();
+                archivoSalida << articulos.MostrarDatos() << endl;
                 break;
             case 2:
-                articulos.ARTtotales();
+                archivoSalida << articulos.ARTtotales() << endl;
                 break;
             case 3:
-                articulos.ARTtotalesDIF();
+                archivoSalida << articulos.ARTtotalesDIF() << endl;
                 break;
             case 4:
-                int n;
-                cout << "Ingrese la cantidad a comparar en el stock: "; cin >> n;
-                MostrarArticulosMenorIgualN(tabla, n);
+                archivoSalida << MostrarArticulosMenorIgualN(tabla, obtenerNumeroUsuario()) << endl;
                 break;
             case 5:
-                int x;
-                cout << "Ingrese la cantidad a comparar en el stock: "; cin >> x;
-                max_Stock(tabla, x);
+                archivoSalida << max_Stock(tabla, obtenerNumeroUsuario()) << endl;
                 break;
             case 6:
-                articulos.StockNombre();
+                archivoSalida << articulos.StockNombre() << endl;
                 break;
             case 7:
-                articulos.StockNomYDep();
+                archivoSalida << articulos.StockNomYDep() << endl;
                 break;
             case 8:
                 cout << "Saliendo del programa." << endl;
                 break;
             case 9:
-                cout << "Tutorial: " << endl;
-                cout << "Bienvenido! A continuacion le mostraremos una breve explicacion de nuestro proyecto: " << endl;
-                cout << "Usted primero debe ingresar el nUmero de opcion que desea utilizar" << endl;
-                cout << "En las opciones 6 y 7 usted debe ingresar el nombre EXACTO del producto" << endl;
-                cout << "Los depositos van de 0 a x (x segun la cantidad de depositos que USTED necesita)" <<endl;
+                archivoSalida << "Tutorial: " << endl;
+                archivoSalida << "Bienvenido! A continuacion le mostraremos una breve explicacion de nuestro proyecto: " << endl;
+                archivoSalida << "Usted primero debe ingresar el nUmero de opcion que desea utilizar" << endl;
+                archivoSalida << "En las opciones 6 y 7 usted debe ingresar el nombre EXACTO del producto" << endl;
+                archivoSalida << "Los depositos van de 0 a x (x segun la cantidad de depositos que USTED necesita)" << endl;
                 break;
             default:
-                cout << "Opcion no valida. Por favor, elija una opcion valida." << endl;
+                archivoSalida << "Opcion no valida. Por favor, elija una opcion valida." << endl;
                 break;
         }
     } while (opcion != 8);
 
+    archivoSalida.close();
     return 0;
 }
